@@ -1,6 +1,7 @@
 data "aws_iam_policy_document" "actions_assume" {
   for_each = local.repos
   statement {
+    sid     = ""
     effect  = "Allow"
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
@@ -23,14 +24,16 @@ data "aws_iam_policy_document" "actions_assume" {
   }
 }
 
-data "aws_iam_policy_document" "tfstate_permission" {
+data "aws_iam_policy_document" "tfstate_permissions" {
   statement {
+    sid       = ""
     effect    = "Allow"
     resources = [local.tfstate_s3_bucket_arn]
     actions   = ["s3:ListBucket"]
   }
 
   statement {
+    sid       = ""
     effect    = "Allow"
     resources = ["${local.tfstate_s3_bucket_arn}/terraform/*"]
 
@@ -42,6 +45,7 @@ data "aws_iam_policy_document" "tfstate_permission" {
   }
 
   statement {
+    sid       = ""
     effect    = "Allow"
     resources = [local.tfstate_dynamodb_table_arn]
 
@@ -50,6 +54,38 @@ data "aws_iam_policy_document" "tfstate_permission" {
       "dynamodb:GetItem",
       "dynamodb:PutItem",
       "dynamodb:DeleteItem",
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "this_repo_permissions" {
+  statement {
+    sid       = ""
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "s3:ListBucket",
+      "dynamodb:PutItem",
+      "s3:GetObject",
+      "dynamodb:GetItem",
+      "iam:CreateOpenIDConnectProvider",
+      "iam:CreatePolicy",
+      "iam:GetOpenIDConnectProvider",
+      "iam:GetPolicy",
+      "iam:GetPolicyVersion",
+      "iam:CreateRole",
+      "iam:AttachRolePolicy",
+      "iam:GetRole",
+      "iam:ListRolePolicies",
+      "iam:ListAttachedRolePolicies",
+      "s3:PutObject",
+      "iam:ListInstanceProfilesForRole",
+      "iam:DetachRolePolicy",
+      "iam:DeleteRole",
+      "iam:ListPolicyVersions",
+      "iam:DeleteOpenIDConnectProvider",
+      "iam:DeletePolicy",
     ]
   }
 }

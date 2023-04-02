@@ -21,9 +21,13 @@ resource "aws_iam_role" "actions_assume" {
   for_each            = local.repos
   name_prefix         = "GitHubActionsRole-"
   assume_role_policy  = data.aws_iam_policy_document.actions_assume[each.key].json
-  managed_policy_arns = [aws_iam_policy.tfstate_permission.arn]
+  managed_policy_arns = flatten([aws_iam_policy.tfstate_permissions.arn, try(each.value.extra_permissions, [])])
 }
 
-resource "aws_iam_policy" "tfstate_permission" {
-  policy = data.aws_iam_policy_document.tfstate_permission.json
+resource "aws_iam_policy" "tfstate_permissions" {
+  policy = data.aws_iam_policy_document.tfstate_permissions.json
+}
+
+resource "aws_iam_policy" "this_repo_permissions" {
+  policy = data.aws_iam_policy_document.this_repo_permissions.json
 }
