@@ -6,7 +6,7 @@ locals {
       claim = "repo:tenzin-io/cloudflare-dns:ref:refs/heads/main"
     }
     "tenzin-io/github-actions-iam-roles" = {
-      claim             = "repo:tenzin-io/tenzin-io/github-actions-iam-roles:ref:refs/heads/main"
+      claim             = "repo:tenzin-io/github-actions-iam-roles:ref:refs/heads/main"
       extra_permissions = [aws_iam_policy.this_repo_permissions.arn]
     }
   }
