@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "actions_assume" {
+data "aws_iam_policy_document" "github_actions_role" {
   for_each = local.repos
   statement {
     sid     = ""
@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "actions_assume" {
   }
 }
 
-data "aws_iam_policy_document" "tfstate_permissions" {
+data "aws_iam_policy_document" "terraform_backend_permissions" {
   statement {
     sid       = ""
     effect    = "Allow"

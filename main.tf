@@ -17,15 +17,15 @@ resource "aws_iam_openid_connect_provider" "github_actions" {
   thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1"]
 }
 
-resource "aws_iam_role" "actions_assume" {
+resource "aws_iam_role" "github_actions_role" {
   for_each            = local.repos
   name_prefix         = "GitHubActionsRole-"
-  assume_role_policy  = data.aws_iam_policy_document.actions_assume[each.key].json
-  managed_policy_arns = flatten([aws_iam_policy.tfstate_permissions.arn, try(each.value.extra_permissions, [])])
+  assume_role_policy  = data.aws_iam_policy_document.github_actions_role[each.key].json
+  managed_policy_arns = flatten([aws_iam_policy.terraform_backend_permissions.arn, try(each.value.extra_permissions, [])])
 }
 
-resource "aws_iam_policy" "tfstate_permissions" {
-  policy = data.aws_iam_policy_document.tfstate_permissions.json
+resource "aws_iam_policy" "terraform_backend_permissions" {
+  policy = data.aws_iam_policy_document.terraform_backend_permissions.json
 }
 
 resource "aws_iam_policy" "this_repo_permissions" {
