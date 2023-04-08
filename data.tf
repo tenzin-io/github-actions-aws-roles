@@ -71,6 +71,7 @@ data "aws_iam_policy_document" "iam_role_manage" {
       "iam:GetPolicy",
       "iam:GetPolicyVersion",
       "iam:CreatePolicyVersion",
+      "iam:DeletePolicyVersion",
       "iam:CreateRole",
       "iam:AttachRolePolicy",
       "iam:GetRole",
