@@ -21,13 +21,23 @@ resource "aws_iam_role" "github_actions_role" {
   for_each            = local.repos
   name_prefix         = "GitHubActionsRole-"
   assume_role_policy  = data.aws_iam_policy_document.github_actions_role[each.key].json
-  managed_policy_arns = flatten([aws_iam_policy.terraform_backend_permissions.arn, try(each.value.extra_permissions, [])])
+  managed_policy_arns = each.value.permissions
 }
 
-resource "aws_iam_policy" "terraform_backend_permissions" {
-  policy = data.aws_iam_policy_document.terraform_backend_permissions.json
+resource "aws_iam_policy" "terraform_backend_manage" {
+  name_prefix = "GitHubActions-TerraformBackendManage-"
+  description = "Permissions to manage Terraform remote backend"
+  policy      = data.aws_iam_policy_document.terraform_backend_manage.json
 }
 
-resource "aws_iam_policy" "this_repo_permissions" {
-  policy = data.aws_iam_policy_document.this_repo_permissions.json
+resource "aws_iam_policy" "iam_role_manage" {
+  name_prefix = "GitHubActions-IAMRoleManage-"
+  description = "Permissions to manage IAM roles that other GitHub repos can assume when using GitHub actions"
+  policy      = data.aws_iam_policy_document.iam_role_manage.json
+}
+
+resource "aws_iam_policy" "parameter_store_manage" {
+  name_prefix = "GitHubActions-ParameterStoreManage-"
+  description = "Permissions to manage parameters in the AWS SSM Parameter Store"
+  policy      = data.aws_iam_policy_document.parameter_store_manage.json
 }

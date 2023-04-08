@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "github_actions_role" {
   }
 }
 
-data "aws_iam_policy_document" "terraform_backend_permissions" {
+data "aws_iam_policy_document" "terraform_backend_manage" {
   statement {
     sid       = ""
     effect    = "Allow"
@@ -58,17 +58,13 @@ data "aws_iam_policy_document" "terraform_backend_permissions" {
   }
 }
 
-data "aws_iam_policy_document" "this_repo_permissions" {
+data "aws_iam_policy_document" "iam_role_manage" {
   statement {
     sid       = ""
     effect    = "Allow"
     resources = ["*"]
 
     actions = [
-      "s3:ListBucket",
-      "dynamodb:PutItem",
-      "s3:GetObject",
-      "dynamodb:GetItem",
       "iam:CreateOpenIDConnectProvider",
       "iam:CreatePolicy",
       "iam:GetOpenIDConnectProvider",
@@ -79,13 +75,28 @@ data "aws_iam_policy_document" "this_repo_permissions" {
       "iam:GetRole",
       "iam:ListRolePolicies",
       "iam:ListAttachedRolePolicies",
-      "s3:PutObject",
       "iam:ListInstanceProfilesForRole",
       "iam:DetachRolePolicy",
       "iam:DeleteRole",
       "iam:ListPolicyVersions",
       "iam:DeleteOpenIDConnectProvider",
       "iam:DeletePolicy",
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "parameter_store_manage" {
+  statement {
+    sid       = ""
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "ssm:GetParameter",
+      "ssm:DescribeParameters",
+      "ssm:ListTagsForResource",
+      "ssm:DeleteParameter",
+      "ssm:PutParameter",
     ]
   }
 }
