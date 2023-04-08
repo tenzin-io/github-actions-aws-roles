@@ -93,6 +93,7 @@ data "aws_iam_policy_document" "parameter_store_manage" {
 
     actions = [
       "ssm:GetParameter",
+      "ssm:GetParameters",
       "ssm:DescribeParameters",
       "ssm:ListTagsForResource",
       "ssm:DeleteParameter",
