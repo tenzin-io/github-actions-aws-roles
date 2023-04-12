@@ -103,3 +103,18 @@ data "aws_iam_policy_document" "parameter_store_manage" {
     ]
   }
 }
+
+data "aws_iam_policy_document" "parameter_store_read" {
+  statement {
+    sid       = ""
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "ssm:GetParameter",
+      "ssm:GetParameters",
+      "ssm:DescribeParameters",
+      "ssm:ListTagsForResource"
+    ]
+  }
+}

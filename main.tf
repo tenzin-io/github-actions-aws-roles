@@ -41,3 +41,9 @@ resource "aws_iam_policy" "parameter_store_manage" {
   description = "Permissions to manage parameters in the AWS SSM Parameter Store"
   policy      = data.aws_iam_policy_document.parameter_store_manage.json
 }
+
+resource "aws_iam_policy" "parameter_store_read" {
+  name_prefix = "GitHubActions-ParameterStoreReadOnly-"
+  description = "Permissions to read parameters in the AWS SSM Parameter Store"
+  policy      = data.aws_iam_policy_document.parameter_store_read.json
+}
