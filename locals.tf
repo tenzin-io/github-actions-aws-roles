@@ -12,7 +12,7 @@ locals {
     },
     "tenzin-io/cloudflare-dns" = {
       claim       = "repo:tenzin-io/cloudflare-dns:ref:refs/heads/main"
-      permissions = [aws_iam_policy.terraform_backend_manage.arn]
+      permissions = [aws_iam_policy.terraform_backend_manage.arn, aws_iam_policy.parameter_store_read.arn]
     }
     "tenzin-io/github-actions-aws-roles" = {
       claim       = "repo:tenzin-io/github-actions-aws-roles:ref:refs/heads/main"
