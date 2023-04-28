@@ -2,6 +2,10 @@ locals {
   tfstate_s3_bucket_arn      = "arn:aws:s3:::tenzin-io"
   tfstate_dynamodb_table_arn = "arn:aws:dynamodb:us-east-1:130900203380:table/tenzin-io"
   repos = {
+    "tenzin-io/homelab-artifactory" = {
+      claim       = "repo:tenzin-io/homelab-artifactory:ref:refs/heads/main"
+      permissions = [aws_iam_policy.terraform_backend_manage.arn]
+    }
     "tenzin-io/homelab-k8s-nvidia" = {
       claim       = "repo:tenzin-io/homelab-k8s-nvidia:ref:refs/heads/main"
       permissions = [aws_iam_policy.terraform_backend_manage.arn]
