@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "github_actions_role" {
-  for_each = local.repos
+  for_each = var.github_repo_to_permissions
   statement {
     sid     = ""
     effect  = "Allow"
@@ -13,8 +13,8 @@ data "aws_iam_policy_document" "github_actions_role" {
 
     condition {
       test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:sub"
-      values   = [each.value.claim]
+      variable = "token.actions.githubusercontent.com:repository"
+      values   = [each.key]
     }
 
     principals {
@@ -24,18 +24,18 @@ data "aws_iam_policy_document" "github_actions_role" {
   }
 }
 
-data "aws_iam_policy_document" "terraform_backend_manage" {
+data "aws_iam_policy_document" "terraform_backend" {
   statement {
     sid       = ""
     effect    = "Allow"
-    resources = [local.tfstate_s3_bucket_arn]
+    resources = [var.terraform_s3_bucket_arn]
     actions   = ["s3:ListBucket"]
   }
 
   statement {
     sid       = ""
     effect    = "Allow"
-    resources = ["${local.tfstate_s3_bucket_arn}/terraform/*"]
+    resources = ["${var.terraform_s3_bucket_arn}/terraform/*"]
 
     actions = [
       "s3:GetObject",
@@ -47,7 +47,7 @@ data "aws_iam_policy_document" "terraform_backend_manage" {
   statement {
     sid       = ""
     effect    = "Allow"
-    resources = [local.tfstate_dynamodb_table_arn]
+    resources = [var.terraform_dynamodb_table_arn]
 
     actions = [
       "dynamodb:DescribeTable",
@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "terraform_backend_manage" {
   }
 }
 
-data "aws_iam_policy_document" "iam_role_manage" {
+data "aws_iam_policy_document" "iam_manage" {
   statement {
     sid       = ""
     effect    = "Allow"
@@ -83,38 +83,6 @@ data "aws_iam_policy_document" "iam_role_manage" {
       "iam:ListPolicyVersions",
       "iam:DeleteOpenIDConnectProvider",
       "iam:DeletePolicy",
-    ]
-  }
-}
-
-data "aws_iam_policy_document" "parameter_store_manage" {
-  statement {
-    sid       = ""
-    effect    = "Allow"
-    resources = ["*"]
-
-    actions = [
-      "ssm:GetParameter",
-      "ssm:GetParameters",
-      "ssm:DescribeParameters",
-      "ssm:ListTagsForResource",
-      "ssm:DeleteParameter",
-      "ssm:PutParameter",
-    ]
-  }
-}
-
-data "aws_iam_policy_document" "parameter_store_read" {
-  statement {
-    sid       = ""
-    effect    = "Allow"
-    resources = ["*"]
-
-    actions = [
-      "ssm:GetParameter",
-      "ssm:GetParameters",
-      "ssm:DescribeParameters",
-      "ssm:ListTagsForResource"
     ]
   }
 }
