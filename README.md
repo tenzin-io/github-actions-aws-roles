@@ -30,7 +30,7 @@ A Terraform repository to create AWS IAM roles for GitHub Action runners to assu
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_github_repo_to_permissions"></a> [github\_repo\_to\_permissions](#input\_github\_repo\_to\_permissions) | n/a | `map(list(string))` | n/a | yes |
-| <a name="input_terraform_dynamodb_table_arn"></a> [terraform\_dynamodb\_table\_arn](#input\_terraform\_dynamodb\_table\_arn) | n/a | `string` | n/a | yes |
-| <a name="input_terraform_s3_bucket_arn"></a> [terraform\_s3\_bucket\_arn](#input\_terraform\_s3\_bucket\_arn) | n/a | `string` | n/a | yes |
+| <a name="input_github_repo_to_permissions"></a> [github\_repo\_to\_permissions](#input\_github\_repo\_to\_permissions) | A list of permissions to allow for the GitHub repo.  Valid value(s): terraform\_backend, iam\_manage | `map(list(string))` | n/a | yes |
+| <a name="input_terraform_dynamodb_table_arn"></a> [terraform\_dynamodb\_table\_arn](#input\_terraform\_dynamodb\_table\_arn) | The DynamoDB table used for state locking | `string` | n/a | yes |
+| <a name="input_terraform_s3_bucket_arn"></a> [terraform\_s3\_bucket\_arn](#input\_terraform\_s3\_bucket\_arn) | The S3 bucket to store Terraform state files | `string` | n/a | yes |
 <!-- END_TF_DOCS -->
