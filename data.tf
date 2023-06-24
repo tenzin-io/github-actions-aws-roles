@@ -12,9 +12,9 @@ data "aws_iam_policy_document" "github_actions_role" {
     }
 
     condition {
-      test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:repository"
-      values   = [each.key]
+      test     = "StringLike"
+      variable = "token.actions.githubusercontent.com:sub"
+      values   = ["repo:${each.key}:*"]
     }
 
     principals {
