@@ -83,6 +83,7 @@ data "aws_iam_policy_document" "iam_manage" {
       "iam:ListPolicyVersions",
       "iam:DeleteOpenIDConnectProvider",
       "iam:DeletePolicy",
+      "iam:UpdateOpenIDConnectProviderThumbprint",
     ]
   }
 }
