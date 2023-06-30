@@ -1,3 +1,7 @@
+data "tls_certificate" "github_actions" {
+  url = "https://token.actions.githubusercontent.com"
+}
+
 data "aws_iam_policy_document" "github_actions_role" {
   for_each = var.github_repo_to_permissions
   statement {
