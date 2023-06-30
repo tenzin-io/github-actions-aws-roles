@@ -12,7 +12,7 @@ A Terraform repository to create AWS IAM roles for GitHub Action runners to assu
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.6.1 |
 
 ## Resources
 
