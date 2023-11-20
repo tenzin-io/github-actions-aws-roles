@@ -6,7 +6,7 @@ github_repo_to_permissions = {
   "tenzin-io/homelab-k8s-nvidia"       = ["terraform_backend"]
   "tenzin-io/homelab-k8s-oracle"       = ["terraform_backend"]
   "tenzin-io/homelab-k8s-prod"         = ["terraform_backend"]
-  "tenzin-io/homelab-k8s-dev"          = ["terraform_backend"]
+  "tenzin-io/dev-k8s"                  = ["terraform_backend"]
   "tenzin-io/cloudflare-dns"           = ["terraform_backend"]
   "tenzin-io/github-actions-aws-roles" = ["terraform_backend", "iam_manage"]
 }
