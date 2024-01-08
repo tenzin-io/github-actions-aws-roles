@@ -31,8 +31,7 @@ resource "aws_iam_role" "github_actions_role" {
   assume_role_policy = data.aws_iam_policy_document.github_actions_role[each.key].json
   managed_policy_arns = compact([for permission in each.value : lookup({
     "terraform_backend" = aws_iam_policy.terraform_backend.arn,
-    "iam_manage"        = aws_iam_policy.iam_manage.arn,
-    "vault_admin"       = aws_iam_policy.vault_admin.arn,
+    "iam_manage"        = aws_iam_policy.iam_manage.arn
   }, permission, null)])
 }
 
