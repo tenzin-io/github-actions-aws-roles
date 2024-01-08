@@ -81,6 +81,7 @@ data "aws_iam_policy_document" "iam_manage" {
       "iam:ListInstanceProfilesForRole",
       "iam:DetachRolePolicy",
       "iam:DeleteRole",
+      "iam:DeleteRolePolicy",
       "iam:ListPolicyVersions",
       "iam:DeleteOpenIDConnectProvider",
       "iam:DeletePolicy",
