@@ -97,18 +97,8 @@ data "aws_iam_policy_document" "ecr_manage" {
     resources = ["*"]
 
     actions = [
-      "ecr:CreateRepository",
-      "ecr:DeleteRepository",
-      "ecr:DescribeRepositories",
-      "ecr:DescribeImages",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:BatchGetImage",
-      "ecr:InitiateLayerUpload",
-      "ecr:UploadLayerPart",
-      "ecr:CompleteLayerUpload",
-      "ecr:PutImage",
-      "ecr:ListImages",
+      "ecr:*",
+      "ecr-public:*",
     ]
   }
 }
