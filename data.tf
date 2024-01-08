@@ -69,6 +69,7 @@ data "aws_iam_policy_document" "iam_manage" {
       "iam:CreatePolicy",
       "iam:GetOpenIDConnectProvider",
       "iam:GetPolicy",
+      "iam:GetRolePolicy",
       "iam:GetPolicyVersion",
       "iam:CreatePolicyVersion",
       "iam:DeletePolicyVersion",
