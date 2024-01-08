@@ -10,5 +10,5 @@ github_repo_to_permissions = {
   "tenzin-io/dev-k8s"                  = ["terraform_backend"]
   "tenzin-io/cloudflare-dns"           = ["terraform_backend"]
   "tenzin-io/github-actions-aws-roles" = ["terraform_backend", "iam_manage"]
-  "tenzin-io/actions-runner-images"    = ["ecr_manage"]
+  "tenzin-io/aws-tenzin-terraform"     = ["terraform_backend", "ecr_manage"]
 }

@@ -31,7 +31,8 @@ resource "aws_iam_role" "github_actions_role" {
   assume_role_policy = data.aws_iam_policy_document.github_actions_role[each.key].json
   managed_policy_arns = compact([for permission in each.value : lookup({
     "terraform_backend" = aws_iam_policy.terraform_backend.arn,
-    "iam_manage"        = aws_iam_policy.iam_manage.arn
+    "iam_manage"        = aws_iam_policy.iam_manage.arn,
+    "ecr_manage"        = aws_iam_policy.ecr_manage.arn,
   }, permission, null)])
 }
 
@@ -45,4 +46,10 @@ resource "aws_iam_policy" "iam_manage" {
   name_prefix = "GitHubActions-IAMRoleManage-"
   description = "Permissions to manage IAM roles that other GitHub repos can assume when using GitHub actions"
   policy      = data.aws_iam_policy_document.iam_manage.json
+}
+
+resource "aws_iam_policy" "ecr_manage" {
+  name_prefix = "GitHubActions-ECRManage-"
+  description = "Permissions to manage ECR repositories"
+  policy      = data.aws_iam_policy_document.ecr_manage.json
 }
