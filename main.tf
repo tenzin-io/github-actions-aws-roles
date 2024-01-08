@@ -47,9 +47,3 @@ resource "aws_iam_policy" "iam_manage" {
   description = "Permissions to manage IAM roles that other GitHub repos can assume when using GitHub actions"
   policy      = data.aws_iam_policy_document.iam_manage.json
 }
-
-resource "aws_iam_policy" "vault_admin" {
-  name_prefix = "GitHubActions-VaultAdmin-"
-  description = "Permissions to manage IAM users for Vault AWS dynamic secrets engine to use"
-  policy      = data.aws_iam_policy_document.vault_admin.json
-}
