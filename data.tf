@@ -95,21 +95,21 @@ data "aws_iam_policy_document" "vault_admin" {
     resources = ["*"]
 
     actions = [
-        "iam:AttachUserPolicy",
-        "iam:CreateAccessKey",
-        "iam:CreateUser",
-        "iam:DeleteAccessKey",
-        "iam:DeleteUser",
-        "iam:DeleteUserPolicy",
-        "iam:DetachUserPolicy",
-        "iam:GetUser",
-        "iam:ListAccessKeys",
-        "iam:ListAttachedUserPolicies",
-        "iam:ListGroupsForUser",
-        "iam:ListUserPolicies",
-        "iam:PutUserPolicy",
-        "iam:AddUserToGroup",
-        "iam:RemoveUserFromGroup"
+      "iam:AttachUserPolicy",
+      "iam:CreateAccessKey",
+      "iam:CreateUser",
+      "iam:DeleteAccessKey",
+      "iam:DeleteUser",
+      "iam:DeleteUserPolicy",
+      "iam:DetachUserPolicy",
+      "iam:GetUser",
+      "iam:ListAccessKeys",
+      "iam:ListAttachedUserPolicies",
+      "iam:ListGroupsForUser",
+      "iam:ListUserPolicies",
+      "iam:PutUserPolicy",
+      "iam:AddUserToGroup",
+      "iam:RemoveUserFromGroup"
     ]
   }
 }
