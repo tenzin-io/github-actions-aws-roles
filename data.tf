@@ -1,7 +1,7 @@
 data "aws_iam_policy_document" "github_actions_role" {
   for_each = var.github_repo_to_permissions
   statement {
-    sid     = ""
+    sid     = "TrustGitHubToken"
     effect  = "Allow"
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
@@ -26,16 +26,16 @@ data "aws_iam_policy_document" "github_actions_role" {
 
 data "aws_iam_policy_document" "terraform_backend" {
   statement {
-    sid       = ""
+    sid       = "TerraformBackend"
     effect    = "Allow"
-    resources = [var.terraform_s3_bucket_arn]
+    resources = [local.terraform_s3_bucket_arn]
     actions   = ["s3:ListBucket"]
   }
 
   statement {
-    sid       = ""
+    sid       = "TerraformWorkspace"
     effect    = "Allow"
-    resources = ["${var.terraform_s3_bucket_arn}/terraform/*"]
+    resources = ["${local.terraform_s3_bucket_arn}/terraform/*"]
 
     actions = [
       "s3:GetObject",
@@ -45,9 +45,9 @@ data "aws_iam_policy_document" "terraform_backend" {
   }
 
   statement {
-    sid       = ""
+    sid       = "TerraformStateLocking"
     effect    = "Allow"
-    resources = [var.terraform_dynamodb_table_arn]
+    resources = [local.terraform_dynamodb_table_arn]
 
     actions = [
       "dynamodb:DescribeTable",
@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "terraform_backend" {
 
 data "aws_iam_policy_document" "iam_manage" {
   statement {
-    sid       = ""
+    sid       = "ManageIAM"
     effect    = "Allow"
     resources = ["*"]
 
@@ -92,7 +92,7 @@ data "aws_iam_policy_document" "iam_manage" {
 
 data "aws_iam_policy_document" "ecr_manage" {
   statement {
-    sid       = ""
+    sid       = "ManageECR"
     effect    = "Allow"
     resources = ["*"]
 
