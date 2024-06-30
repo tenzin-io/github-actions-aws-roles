@@ -1,4 +1,3 @@
-# Terraform backend state repository
 github_repo_to_permissions = {
   "tenzin-io/vault-tenzin-io"          = ["terraform-backend"]
   "tenzin-io/dev-k8s"                  = ["terraform-backend"]
