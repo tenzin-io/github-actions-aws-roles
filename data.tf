@@ -102,3 +102,25 @@ data "aws_iam_policy_document" "ecr_manage" {
     ]
   }
 }
+
+data "aws_iam_policy_document" "ecr_publish" {
+  statement {
+    sid       = "PublishECR"
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "ecr-public:BatchCheckLayerAvailability",
+      "ecr-public:CompleteLayerUpload",
+      "ecr-public:InitiateLayerUpload",
+      "ecr-public:PutImage",
+      "ecr-public:UploadLayerPart",
+      "ecr-public:GetRepositoryPolicy",
+      "ecr-public:DescribeRepositories",
+      "ecr-public:GetRepositoryCatalogData",
+      "ecr-public:ListTagsForResource",
+      "ecr-public:GetAuthorizationToken",
+      "sts:GetServiceBearerToken",
+    ]
+  }
+}
