@@ -5,12 +5,12 @@ terraform {
       version = "~> 5.0"
     }
   }
-  required_version = "~> 1.0"
+  required_version = "~> 1.9"
   backend "s3" {
-    bucket         = "tenzin-io"
-    key            = "terraform/github-actions-iam-roles.state"
-    dynamodb_table = "tenzin-io"
-    region         = "us-east-1"
+    bucket       = "tenzin-cloud"
+    key          = "terraform/github-actions-iam-roles.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
   }
 }
 
@@ -19,8 +19,7 @@ provider "aws" {
 }
 
 locals {
-  terraform_s3_bucket_arn      = "arn:aws:s3:::tenzin-io"
-  terraform_dynamodb_table_arn = "arn:aws:dynamodb:us-east-1:130900203380:table/tenzin-io"
+  terraform_s3_bucket_arn = "arn:aws:s3:::tenzin-cloud"
 }
 
 #
@@ -43,8 +42,6 @@ resource "aws_iam_role" "github_actions_role" {
   managed_policy_arns = compact([for permission in each.value : lookup({
     "terraform-backend" = aws_iam_policy.terraform_backend.arn,
     "iam-manage"        = aws_iam_policy.iam_manage.arn,
-    "ecr-manage"        = aws_iam_policy.ecr_manage.arn,
-    "ecr-publish"       = aws_iam_policy.ecr_publish.arn,
   }, permission, null)])
 }
 
@@ -58,16 +55,4 @@ resource "aws_iam_policy" "iam_manage" {
   name_prefix = "GitHubActions-IAMRoleManage-"
   description = "Permissions to manage IAM roles that other GitHub repos can assume when using GitHub actions"
   policy      = data.aws_iam_policy_document.iam_manage.json
-}
-
-resource "aws_iam_policy" "ecr_manage" {
-  name_prefix = "GitHubActions-ECRManage-"
-  description = "Permissions to manage ECR repositories"
-  policy      = data.aws_iam_policy_document.ecr_manage.json
-}
-
-resource "aws_iam_policy" "ecr_publish" {
-  name_prefix = "GitHubActions-ECRPublish-"
-  description = "Permissions to publish image to ECR repositories"
-  policy      = data.aws_iam_policy_document.ecr_publish.json
 }

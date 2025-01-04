@@ -43,19 +43,6 @@ data "aws_iam_policy_document" "terraform_backend" {
       "s3:DeleteObject",
     ]
   }
-
-  statement {
-    sid       = "TerraformStateLocking"
-    effect    = "Allow"
-    resources = [local.terraform_dynamodb_table_arn]
-
-    actions = [
-      "dynamodb:DescribeTable",
-      "dynamodb:GetItem",
-      "dynamodb:PutItem",
-      "dynamodb:DeleteItem",
-    ]
-  }
 }
 
 data "aws_iam_policy_document" "iam_manage" {
@@ -86,41 +73,6 @@ data "aws_iam_policy_document" "iam_manage" {
       "iam:DeleteOpenIDConnectProvider",
       "iam:DeletePolicy",
       "iam:UpdateOpenIDConnectProviderThumbprint",
-    ]
-  }
-}
-
-data "aws_iam_policy_document" "ecr_manage" {
-  statement {
-    sid       = "ManageECR"
-    effect    = "Allow"
-    resources = ["*"]
-
-    actions = [
-      "ecr:*",
-      "ecr-public:*",
-    ]
-  }
-}
-
-data "aws_iam_policy_document" "ecr_publish" {
-  statement {
-    sid       = "PublishECR"
-    effect    = "Allow"
-    resources = ["*"]
-
-    actions = [
-      "ecr-public:BatchCheckLayerAvailability",
-      "ecr-public:CompleteLayerUpload",
-      "ecr-public:InitiateLayerUpload",
-      "ecr-public:PutImage",
-      "ecr-public:UploadLayerPart",
-      "ecr-public:GetRepositoryPolicy",
-      "ecr-public:DescribeRepositories",
-      "ecr-public:GetRepositoryCatalogData",
-      "ecr-public:ListTagsForResource",
-      "ecr-public:GetAuthorizationToken",
-      "sts:GetServiceBearerToken",
     ]
   }
 }
